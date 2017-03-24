@@ -128,7 +128,7 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 #	Chose UK language
 	Close notification
 #	Sleep	3s
-	Wait Until Element Not Stale	css=input#search-query-input	${COMMONWAIT}
+#	Wait Until Element Not Stale	css=input#search-query-input	${COMMONWAIT}
 	Wait Until Element Is Visible	css=input#search-query-input	timeout=${COMMONWAIT}
 	Wait Until Element Is Enabled	css=tr[ng-repeat='t in model.tenderList']	timeout=${COMMONWAIT}
 
@@ -146,7 +146,7 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 	Switch To PMFrame
 #	Wait Until Element Is Not Visible	css=input#search-query-input	20s
 	Wait Until Element Is Visible	id=tenderStatus	timeout=${COMMONWAIT}
-	Wait Until Element Not Stale	xpath=//div[contains(@class,'title-div')]	40
+#	Wait Until Element Not Stale	xpath=//div[contains(@class,'title-div')]	40
 
 
 Створити тендер
@@ -162,7 +162,7 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 	Close notification
 #	Chose UK language
 	Wait For Ajax
-	Wait Until Element Not Stale	css=input#search-query-input	${COMMONWAIT}
+#	Wait Until Element Not Stale	css=input#search-query-input	${COMMONWAIT}
 	Wait Until Element Is Visible	css=input#search-query-input	timeout=${COMMONWAIT}
 	Wait Until Element Is Enabled	css=tr[ng-repeat='t in model.tenderList']	timeout=${COMMONWAIT}
 	Check Current Mode
@@ -259,7 +259,7 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 	Click Button	css=button[data-id='actSend']
 	Close Confirmation In Editor	Закупка поставлена в очередь на отправку в ProZorro. Статус закупки Вы можете отслеживать в личном кабинете.
 	Switch To PMFrame
-	Wait Until Element Not Stale	xpath=//div[contains(@class,'title-div')]	40
+#	Wait Until Element Not Stale	xpath=//div[contains(@class,'title-div')]	40
 	Wait For Element With Reload	xpath=//div[@id='tenderStatus' and contains(., 'Период уточнений')]	1
 	${tender_id} = 	Get Text	css=div#tenderId
 	[return]  ${tender_id}
@@ -326,12 +326,12 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 #	перейдем к редактированию
 	Wait For Element With Reload	css=button[ng-click='commonActions.createAfp()']	1
 #	Wait For Ajax
-	Wait Until Element Is Visible	css=button[ng-click='commonActions.createAfp()']	10s
+	Wait Until Element Is Visible	css=button[ng-click='commonActions.createAfp()']	30s
 	Click Button	css=button[ng-click='commonActions.createAfp()']
 #	откроем нужную вкладку
 	Wait Visibulity And Click Element	css=#tab_3 a
 #	загрузим файл
-	Wait Until Element Is Visible	css=label[for='documentation_tender_yes']	15s
+	Wait Until Element Is Visible	css=label[for='documentation_tender_yes']	30s
 	Click Element	css=label[for='documentation_tender_yes']
 	Wait Visibulity And Click Element	css=div.file-loader a
 
@@ -362,7 +362,7 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 	Wait Until Element Is Visible	xpath=//li[contains(@ng-class, 'description')]	10s
 	Click Element	xpath=//li[contains(@ng-class, 'description')]
 	Wait Until Element Is Visible	xpath=//section[contains(@ng-if, "model.ad.showTab == 'description'")]
-	Wait Until Element Not Stale	xpath=//section[contains(@ng-if, "model.ad.showTab == 'description'")]	40
+#	Wait Until Element Not Stale	xpath=//section[contains(@ng-if, "model.ad.showTab == 'description'")]	40
 	Wait Visibulity And Click Element  xpath=//a[contains(@ng-click, 'adb.showCl = !adb.showCl')]
 	Wait Until Element Is Visible	css=div[ng-if='adb.classification']
 
@@ -690,7 +690,7 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 	[Arguments]  ${user_name}  ${tenderId}	${parameter}	${value}
 	Wait For Element With Reload	css=button[ng-click='commonActions.createAfp()']	1
 	Wait For Ajax
-	Wait Until Element Is Visible	css=button[ng-click='commonActions.createAfp()']	10s
+	Wait Until Element Is Visible	css=button[ng-click='commonActions.createAfp()']	30s
 	Click Button	css=button[ng-click='commonActions.createAfp()']
 	Wait For Ajax
 	Switch To PMFrame
@@ -730,7 +730,7 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 	Click Button						css=button[ng-click='act.saveComplaint()']
 	Wait For Ajax
 	Wait Until Element Is Enabled		css=div.alert-info	timeout=${COMMONWAIT}
-	Wait Until Element Not Stale		css=div.alert-info	40
+#	Wait Until Element Not Stale		css=div.alert-info	40
 	Wait Until Element Contains			css=div.alert-info	Ваше требование успешно сохранено!	timeout=10
 	${claim_data} =	Create Dictionary	id=123
 	${claim_resp} =	Create Dictionary	data=${claim_data}
@@ -753,13 +753,14 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 	Click Button						xpath=//button[@ng-click='act.sendComplaint()']
 	Wait For Ajax
 	Wait Until Element Is Enabled		css=div.alert-info	timeout=${COMMONWAIT}
-	Wait Until Element Not Stale		css=div.alert-info	40
+#	Wait Until Element Not Stale		css=div.alert-info	40
 	Wait Until Element Contains			css=div.alert-info	Ваше требование успешно отправлено!	timeout=10
 	Wait For Ajax
 	sleep								3s
 	Wait Until Element Is Not Visible	xpath=//input[@ng-model="model.question.title"]	timeout=${COMMONWAIT}
 	Wait For Ajax
-	Wait Until Element Not Stale		css=span[ng-click='act.hideModal()']	40
+#	Wait Until Element Not Stale		css=span[ng-click='act.hideModal()']	40
+	Wait Until Element Is Visible		css=span[ng-click='act.hideModal()']	timeout=${COMMONWAIT}
 	Click Element						css=span[ng-click='act.hideModal()']
 	sleep								3s
 	Wait Until Element Is Not Visible	css=div.info-item-val textarea	timeout=30
@@ -774,7 +775,7 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 
 	Wait Until Element Is Visible		xpath=//textarea[@ng-model='model.cancelComplaint.reason']	timeout=${COMMONWAIT}
 	Wait Until Element Is Enabled		xpath=//textarea[@ng-model='model.cancelComplaint.reason']	timeout=${COMMONWAIT}
-	Wait Until Element Not Stale		xpath=//textarea[@ng-model='model.cancelComplaint.reason']	40
+#	Wait Until Element Not Stale		xpath=//textarea[@ng-model='model.cancelComplaint.reason']	40
 	Input Text							xpath=//textarea[@ng-model='model.cancelComplaint.reason']	${cancellation_data.data.cancellationReason}
 	Wait Until Element Is Visible		css=button[ng-click='act.cancelComplaint()']	timeout=${COMMONWAIT}
 	Click Button						css=button[ng-click='act.cancelComplaint()']
@@ -788,8 +789,8 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 	privatmarket.Оновити сторінку з тендером
 	Switch To Tab	2
 	Wait For Ajax
-	Wait Until Element Not Stale	xpath=//button[@ng-click='act.sendEnquiry()']	40
-	Wait Until Element Is Enabled	xpath=//button[@ng-click='act.sendEnquiry()']	10
+#	Wait Until Element Not Stale	xpath=//button[@ng-click='act.sendEnquiry()']	40
+	Wait Until Element Is Enabled	xpath=//button[@ng-click='act.sendEnquiry()']	40
 	Click Button	xpath=//button[@ng-click='act.sendEnquiry()']
 	Заповнити форму питання	${provider}	${tender_id}	${question}
 	Sleep	30s
@@ -816,7 +817,8 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 	Wait Until Element Is Visible	xpath=//button[@ng-click='act.sendQuestion()']				timeout=10
 	Click Button	xpath=//button[@ng-click='act.sendQuestion()']
 	Wait For Notification	Ваше запитання успішно включено до черги на відправку. Дякуємо за звернення!
-	Wait Until Element Not Stale	css=span[ng-click='act.hideModal()']	40
+#	Wait Until Element Not Stale	css=span[ng-click='act.hideModal()']	40
+	Wait Until Element Is Visible	css=span[ng-click='act.hideModal()']				timeout=30
 	Click Element	css=span[ng-click='act.hideModal()']
 	Wait Until Element Is Not Visible	xpath=//input[@ng-model='model.question.title']	timeout=20
 
@@ -841,7 +843,8 @@ ${locator_tender.ajax_overflow}	xpath=//div[@class='ajax_overflow']
 	Wait Until Element Is Visible	id=btnSendAnswer	15s
 	Click Element	id=btnSendAnswer
 	Wait For Notification	Ваша відповідь успішно відправлена!
-	Wait Until Element Not Stale	css=span[ng-click='act.hideModal()']	40
+#	Wait Until Element Not Stale	css=span[ng-click='act.hideModal()']	40
+	Wait Until Element Is Visible	css=span[ng-click='act.hideModal()']	40s
 	Click Element	css=span[ng-click='act.hideModal()']
 	Wait Until Element Is Not Visible	id=questionAnswer	timeout=20
 	Sleep	30s
@@ -934,7 +937,7 @@ Fill Phone
 	${tender_status} =					Get text	css=div#tenderStatus
 	Run Keyword Unless	'до початку періоду подачі' in '${TEST_NAME}'	Run Keyword If	'${tender_status}' == 'Период уточнений завершен'	Wait For Element With Reload	${locator_tenderClaim.buttonCreate}	1
 
-	Wait Until Element Not Stale		${locator_tenderClaim.buttonCreate}	30
+#	Wait Until Element Not Stale		${locator_tenderClaim.buttonCreate}	30
 	Wait Enable And Click Element		${locator_tenderClaim.buttonCreate}
 	Wait For Ajax
 	Wait Until Element Is Not Visible	${locator_tenderClaim.buttonCreate}	${COMMONWAIT}
@@ -1275,7 +1278,7 @@ Check Current Mode
 	${check_result} =	Run Keyword If	'Войти в демо-режим' in '${current_type}'	Set Variable  True
 	Run Keyword If	${check_result} and ${education_type}	Run Keywords	Switch To Education Mode
 	...   AND   Wait For Ajax
-	...   AND   Wait Until Element Not Stale	css=button[ng-click='template.newTender()']	40
+#	...   AND   Wait Until Element Not Stale	css=button[ng-click='template.newTender()']	40
 	...   AND   Wait Until Element Is Enabled	css=button[ng-click='template.newTender()']	timeout=${COMMONWAIT}
 
 
@@ -1311,6 +1314,8 @@ Try Search Element
 	[Arguments]	${locator}  ${tab_number}
 	Reload And Switch To Tab			${tab_number}
 	Wait For Ajax
+	Switch To PMFrame
+	Wait Until Element Is Visible		${locator}	10
 	Wait Until Element Is Enabled		${locator}	3
 	[return]	True
 
@@ -1358,7 +1363,7 @@ Search By Query
 	Press Key	${element}	\\08
 	Wait For Ajax
 	Wait Until Element Is Enabled	css=input[id='found_${query}']	${COMMONWAIT}
-	Wait Until Element Not Stale	xpath=//div[input[@id='found_${query}']]	5
+#	Wait Until Element Not Stale	xpath=//div[input[@id='found_${query}']]	5
 	Click Element	xpath=//div[input[@id='found_${query}']]
 
 

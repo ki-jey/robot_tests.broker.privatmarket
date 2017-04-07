@@ -439,13 +439,10 @@ ${keywords}  /op_robot_tests/tests_files/keywords
 	[Arguments]  ${username}  ${tender_uaid}  ${object_id}  ${field_name}
 	${className} =  Get Element Attribute  xpath=//section[@id='lotSection']/section[contains(., '${object_id}')]//li[1]@class
 	Run Keyword If  '${className}' == 'simple-nav_item active'  Wait Visibility And Click Element  //section[@id='lotSection']/section[contains(., '${object_id}')]//li[1]/a
-
 	${element} =  Set Variable  xpath=//section[@id='lotSection']/section[contains(., '${object_id}')]${tender_data_lot.${field_name}}
-
-	Run Keyword And Return If	'${element}' == 'minimalStep.amount'					Отримати суму	${element}	${item}
-
-	${result_full} =  Get Text	${element}
-	${result} =  Strip String	${result_full}
+	Run Keyword And Return If	'${element}' == 'minimalStep.amount'					Отримати суму	${element}#	${item}
+	${text} =  Get Text	${element}
+	${result} =  Strip String	${text}
 	[Return]  ${result}
 
 

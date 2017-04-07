@@ -1,5 +1,4 @@
 *** Settings ***
-#Library  Selenium2Screenshots
 Library  String
 Library  DateTime
 Library  Selenium2Library
@@ -46,9 +45,6 @@ ${tender_data_items.unit.name}	xpath=//div[@ng-if='adb.quantity']/div[2]/span[2]
 ${tender_data_items.unit.code}	xpath=//div[@ng-if='adb.quantity']/div[2]/span[2]
 ${tender_data_items.quantity}	xpath=//div[@ng-if='adb.quantity']/div[2]/span
 
-
-#/section/div[contains(., 'i-4fe53361') and contains(@class, 'lot-info')]//div[@ng-repeat='cl in adb.additionalClassifications'][1]
-#############################################################
 ${tender_data_item.description}	//div[@class="description"]//span
 ${tender_data_item.deliveryDate.endDate}	div[@ng-if='adb.deliveryDate.endDate']/div[2]
 ${tender_data_item.deliveryLocation.latitude}	css=span.latitude
@@ -244,16 +240,12 @@ ${keywords}  /op_robot_tests/tests_files/keywords
 	Check Current Mode New Realisation
     #go to form
 	Wait Visibility And Click Element	${locator_tenderSearch.addTender}
-#	Wait For Ajax
-#    Wait Until Element Is Visible  css=#sender-analytics  ${COMMONWAIT}
     Unselect Frame
     Wait Until Page Contains Element  id=sender-analytics  ${COMMONWAIT}
     Switch To PMFrame
 	Wait Visibility And Click Element	${locator_tenderAdd.tenderType}
-#	Delete Draft
 #step 0
 	#we should add choosing of procurementMethodType
-#	Wait For Ajax
 	Switch To PMFrame
 	Wait Element Visibility And Input Text	${locator_tenderAdd.procurementName}	${tender_data.data.title}
 	Wait Element Visibility And Input Text	${locator_tenderAdd.procurementDescription}	${tender_data.data.description}
@@ -268,7 +260,6 @@ ${keywords}  /op_robot_tests/tests_files/keywords
 	Wait Visibility And Click Element	css=button[data-id='actConfirm']
 
 	#date
-#	Wait For Ajax
 	Switch To PMFrame
 	Wait Until Element Is Visible	css=input[ng-model='model.ptr.enquiryPeriod.sd.d']	${COMMONWAIT}
 	Set Date And Time	enquiryPeriod	startDate	css=span[data-id='ptrEnquiryPeriodStartDate'] input[ng-model='inputTime']	${tender_data.data.enquiryPeriod.startDate}
@@ -325,7 +316,6 @@ ${keywords}  /op_robot_tests/tests_files/keywords
 	Wait Visibility And Click Element	${locator_tenderCreation.buttonSend}
 	Close Confirmation In Editor	Закупівля поставлена в чергу на відправку в ProZorro. Статус закупівлі Ви можете відстежувати в особистому кабінеті.
 	Switch To PMFrame
-#	Wait Until Element Not Stale	${tender_data_title}	40
 	Wait For Element With Reload	xpath=//div[@id='tenderStatus' and contains(., 'Період уточнень')]	1
 	${tender_id} = 	Get Text	css=div#tenderId
 	[Return]  ${tender_id}
@@ -343,9 +333,7 @@ ${keywords}  /op_robot_tests/tests_files/keywords
 	\    ${minimalStep_amount} = 	Convert to String	${lots[${index}].minimalStep.amount}
 	\    Wait Element Visibility And Input Text	css=input[data-id='valueAmount']	${value_amount}
 	\    Sleep	3s
-#	\    Input Text		css=input[data-id='minimalStepAmount']	${minimalStep_amount}1
 	\    Wait Element Visibility And Input Text	css=input[data-id='minimalStepAmount']	${minimalStep_amount}
-#	\    Sleep	1s
 	\    Wait Visibility And Click Element	css=div.lot-guarantee label
 	\    Wait Element Visibility And Input Text	css=input[data-id='guaranteeAmount']	1
 
@@ -401,10 +389,6 @@ ${keywords}  /op_robot_tests/tests_files/keywords
 #Дождемся подтверждения и обновим страницу, поскольку тут не выходит его закрыть
 	Wait Until Element Is Visible		css=div.modal-body.info-div	${COMMONWAIT}
 	Close Confirmation In Editor	Закупівля поставлена в чергу на відправку в ProZorro. Статус закупівлі Ви можете відстежувати в особистому кабінеті.
-#	Wait Until Element Contains			css=div.modal-body.info-div	Закупівля поставлена в чергу на відправку в ProZorro. Статус закупівлі Ви можете відстежувати в особистому кабінеті.	${COMMONWAIT}
-#	Reload Page
-#	Wait For Ajax
-
 
 
 Відкрити детальну інформацию по позиціям
@@ -415,7 +399,6 @@ ${keywords}  /op_robot_tests/tests_files/keywords
 	Wait Visibility And Click Element	${locator_tenderInfo.lotDescriptionBtn}
 	Wait Until Element Is Visible	${locator_tenderInfo.lotDescriptionBody}	${COMMONWAIT}
 #	Wait Until Element Is Visible	xpath=//section[contains(@ng-if, "model.ad.showTab == 'description'")]	${COMMONWAIT}
-#	Wait Until Element Not Stale	xpath=//section[contains(@ng-if, "model.ad.showTab == 'description'")]	40
 	Wait Visibility And Click Element	${tender_data_items.description}
 	Wait Until Element Is Visible	css=div[ng-if='adb.classification']	${COMMONWAIT}
 
@@ -752,6 +735,7 @@ Covert Amount To Number
 	[Arguments]  ${element}  ${item}
 	${text} =	Отримати текст елемента  ${element}  ${item}
 	${result} =	Set Variable If	'Отменено' in '${text}'	active
+	${result} =	Set Variable If	'Відмінено' in '${text}'	active
 	[Return]  ${result}
 
 
@@ -860,7 +844,6 @@ Covert Amount To Number
 	sleep								3s
 	Wait Until Element Is Not Visible	xpath=//input[@ng-model="model.question.title"]	timeout=${COMMONWAIT}
 	Wait Visibility And Click Element	css=span[ng-click='act.hideModal()']
-#	Click Element						css=span[ng-click='act.hideModal()']
 	sleep								3s
 	Wait Until Element Is Not Visible	css=div.info-item-val textarea	${COMMONWAIT}
 	Element Should Not Be Visible		css=div.error
@@ -869,7 +852,6 @@ Covert Amount To Number
 Скасувати вимогу
 	[Arguments]    ${user}  ${tender_id}  ${claim_data}  ${cancellation_data}
 	Wait Visibility And Click Element	css=a[ng-click='act.showCancelComplaintWnd(q)']
-
 	Wait Until Element Is Visible		xpath=//textarea[@ng-model='model.cancelComplaint.reason']	timeout=${COMMONWAIT}
 	Wait Until Element Is Enabled		xpath=//textarea[@ng-model='model.cancelComplaint.reason']	timeout=${COMMONWAIT}
 	Input Text							xpath=//textarea[@ng-model='model.cancelComplaint.reason']	${cancellation_data.data.cancellationReason}
@@ -1407,7 +1389,6 @@ Close notification
 	Switch To PMFrame
 	${notification_visibility} = 	Run Keyword And Return Status	Wait Until Element Is Visible	css=section[data-id='popupHelloModal'] span[data-id='actClose']	${COMMONWAIT}
 	Run Keyword If	${notification_visibility}	Click Element	css=section[data-id='popupHelloModal'] span[data-id='actClose']
-#	Wait Until Element Is Not Visible	css=section[data-id='popupHelloModal'] span[data-id='actClose']
 
 
 Switch To PMFrame
